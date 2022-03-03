@@ -9,9 +9,8 @@ criar as salas com a sua capacidade, criar sessões, editar categorias, e ainda,
 Funcionários que registam os filmes (foto, realizador, categorias, etc.) e atribuição às salas e
 sessões. 
 
-***Relatório de trabalho***
-[Relatório.pdf](https://github.com/CarvalhoDaStreet/Leiflix/files/8174472/Relatorio.pdf)
-https://github.com/CarvalhoDaStreet/Leiflix/blob/master/Relat%C3%B3rio.pdf
+***Relatório de trabalho:***
+  https://github.com/CarvalhoDaStreet/Leiflix/blob/master/Relat%C3%B3rio.pdf
 
 
 **Processo de Registo e Login & Página Principal**
