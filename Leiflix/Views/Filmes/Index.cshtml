@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Leiflix.Models.Filme>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/js/site.js" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+
+    <form asp-action="Index">
+        <div class="input-group rounded right">
+            <input name="filmename" type="search" class="form-control rounded" placeholder="Search by Movie, Actors, Producers..." aria-label="Search" aria-describedby="search-addon" />
+            <span style="background-color:transparent;" class="input-group-text border-0" id="basicText">
+                <i style="background-color:transparent;" class="fa fa-search"></i>
+            </span>
+        </div>
+    </form>
+
+    <h3 class=" font-weight-bold">Exhibition</h3>
+
+<hr size="1" width="100%" class="mt-4" style="color:black;background-color:black">
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Func"))
+{
+    <h4>
+        <a class="mb-2" asp-action="Create">Add new movie</a>
+    </h4>
+}
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div style="color: #f92626; background-color: transparent" class=" rounded-3  p-4">
+
+            <ul style="background-color: #f92626" role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-0">
+                <li class="nav-item">
+                    <a asp-action="Index" class="nav-link rounded-pill" style="color:black">
+                        All
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="1" class="nav-link rounded-pill" style="color:black">
+                        Action
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="2" class="nav-link rounded-pill" style="color:black">
+                        Comedy
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="3" class="nav-link rounded-pill" style="color:black">
+                        Drama
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="4" class="nav-link rounded-pill" style="color:black">
+                        Fantasy
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="5" class="nav-link rounded-pill" style="color:black">
+                        Horror
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="6" class="nav-link  rounded-pill" style="color:black">
+                        Mystery
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="7" class="nav-link  rounded-pill" style="color:black">
+                        Romance
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="8" class="nav-link  rounded-pill" style="color:black">
+                        Thriller
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-5 mb-5">
+    <div class="row g-2">
+        <div class="col-md-12">
+            <div class="row g-2">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-4">
+                        <div style="background-color:#ffffff;" class="product py-4 border-0 mb-4  border-dark">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <div class="text-center"> <img src="@Url.Content("~/Image/" + item.ImageName)" height="200vh"> </div>
+                            </a>
+                            <div class="about text-center text">
+                                <h5 class="text mb-2" style="font-size:medium">@Html.DisplayFor(modelItem => item.Name)</h5>
+                                <a asp-action="Favorite" asp-route-id="@item.Id"><i id="addFav" data-item-id="123" style="color: #f92626;font-size:x-large" class=" mr-1 mb-2 align-middle fa fa-heart-o"></i></a>
+                                @if (User.IsInRole("Admin") || User.IsInRole("Func"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id"> <i style="color: #000000;font-size:x-large" class="fa fa-edit mr-1"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"> <i style="color: #f92626; font-size: x-large" class="fa fa-trash mr-1"></i></a>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+@section scripts{
+
+    <script>
+        $(function (){
+            $("#basicText").click(function () {
+                $("Form").submit();
+            })
+        });
+        
+    </script>
+}
+
+

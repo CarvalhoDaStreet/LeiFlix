@@ -1,0 +1,71 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<hr size="7" width="100%" style="color:black;background-color:black">
+
+<section class="h-25 bg-white">
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        
+            <div class="row d-flex justify-content-center align-items-center h-25">
+                <div class="col-9 col-md-8 col-lg-6 col-xl-5">
+
+                    <div class="card-body p-1 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-5">Create Account</h2>
+                            
+                            <div class="form-group">
+                                <input placeholder="Name" asp-for="Input.Name" class="form-control" />
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input placeholder="Username" asp-for="Input.UserName" class="form-control" />
+                                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input placeholder="Email" asp-for="Input.Email" class="form-control" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="form-group">
+                                    <input placeholder="Phone Number" asp-for="Input.PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Input.Role"></label>
+                                    <select asp-for="Input.Role" class="form-control" asp-items='new SelectList(ViewBag.roles,"Name","Name")'>
+                                        <option value="">-- Select a Role</option>
+                                    </select>
+                                    <span asp-validation-for="Input.Role" class="text-danger"></span>
+                                </div>
+                            }
+
+                            <div class="form-group">
+                                <input placeholder="Password" asp-for="Input.Password" class="form-control" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input placeholder="Confirm Password" asp-for="Input.ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+                                <button class="btn btn-outline-dark btn-lg mt-5 px-5" type="submit">Register</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

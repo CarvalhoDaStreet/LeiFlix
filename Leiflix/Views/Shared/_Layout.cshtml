@@ -1,0 +1,101 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Leiflix</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom-0  mb-3">
+            <div class="container">
+
+                <img class="navbar-brand" href="" asp-area="" asp-controller="Filmes" src="https://localhost:44304/image/leiflix.PNG" width="100px" />
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder " asp-area="" asp-controller="Filmes" asp-action="">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder" asp-area="" asp-controller="Perfils" asp-action="Index">Profile</a>
+                            </li>
+
+
+                            <li class="nav-item dropdown text-dark font-weight-bold">
+                                <a class="nav-link dropdown-toggle text-dark font-weight-bold" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-gear"></i> Manage Options
+                                </a>
+
+                                <div class="dropdown-menu text-dark font-weight-bold" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Add Users</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Sessaos" asp-action="Index">Manage Sessions</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cart" asp-action="AdminIndex">Tickets Bought</a>
+                                </div>
+                            </li>
+
+
+                        }
+
+                        @if (User.IsInRole("Func"))
+                        {
+
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder" asp-area="" asp-controller="Filmes" asp-action="">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder" asp-area="" asp-controller="Perfils" asp-action="Index">Profile</a>
+                            </li>
+
+                            <li class="nav-item dropdown text-dark font-weight-bold">
+                                <a class="nav-link dropdown-toggle text-dark font-weight-bold" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-gear"></i> Management
+                                </a>
+
+                                <div class="dropdown-menu text-dark font-weight-bold" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Sessaos" asp-action="Index">Manage Sessions</a>
+                                </div>
+                            </li>
+
+                        }
+
+                        @if (User.IsInRole("Client"))
+                        {
+
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder" asp-area="" asp-controller="Filmes" asp-action="">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a style="font-size:large" class="nav-link text-dark font-weight-bolder" asp-area="" asp-controller="Perfils" asp-action="Index">Profile</a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

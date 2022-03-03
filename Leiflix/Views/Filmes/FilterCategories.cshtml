@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Leiflix.Models.Filme>
+
+@{
+    ViewData["Title"] = "FilterCategories";
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+
+<h1>In exhibition</h1>
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Func"))
+{
+    <p>
+        <a class="mb-2" asp-action="Create">Create New</a>
+    </p>
+}
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="bg-transparent rounded-lg  p-4">
+
+            <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-0">
+                <li class="nav-item">
+                    <a asp-action="Index" class="nav-link rounded-pill">
+                        All
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="1" class="nav-link rounded-pill">
+                        Action
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="2" class="nav-link rounded-pill">
+                        Comedy
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="3" class="nav-link rounded-pill">
+                        Drama
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="4" class="nav-link rounded-pill">
+                        Fantasy
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="5" class="nav-link rounded-pill">
+                        Horror
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="6" class="nav-link  rounded-pill">
+                        Mystery
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="7" class="nav-link  rounded-pill">
+                        Romance
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FilterCategories" asp-route-id="8" class="nav-link  rounded-pill">
+                        Thriller
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Func") || User.IsInRole("Client"))
+{
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row g-2">
+            <div class="col-md-12">
+                <div class="row g-2">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-md-4">
+                            <div style="background-color:#ffffff;" class="product py-4 border-0 mb-4  border-dark">
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <div class="text-center"> <img src="@Url.Content("~/Image/" + item.ImageName)" height="200vh"> </div>
+                                </a>
+                                <div class="about text-center text">
+                                    <h5 class="text mb-2" style="font-size:medium">@Html.DisplayFor(modelItem => item.Name)</h5>
+                                    <i style="color: #f92626;font-size:x-large" class=" mr-1 align-middle fa fa-heart-o"></i>
+                                    <i style="color: #000000;font-size:x-large" class=" mr-1 align-middle fa fa-eye"></i>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Func"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id"> <i style="color: #000000;font-size:x-large" class="fa fa-edit mr-1"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"> <i style="color: #f92626; font-size: x-large" class="fa fa-trash mr-1"></i></a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

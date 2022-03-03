@@ -1,0 +1,102 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<Leiflix.Data.StripeSettings> Stripe
+@model Leiflix.ViewModels.BookNowViewModel
+
+
+@{
+    ViewData["Title"] = "BookNow";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+
+<h3 class="card-title mb-3 mt-2 font-weight-bolder">
+    <span class="ml-0">
+        <a asp-action="Details" asp-route-id="@Model.FilmeId">
+            <i style="color: #000000;font-size:x-large" class="fa fa-chevron-left mr-2"></i>
+        </a>
+    </span>
+    <span class="font-weight-normal">Buy tickets for: </span> <span class="font-weight-bold">@Model.FilmeName</span> <span class="mr-5">
+    </span>
+</h3>
+
+<hr size="7" width="100%" class="mt-3" style="color:black;background-color:black">
+<div class="col-md-4">
+    <form method="post" asp-action="BookNow" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label class="control-label font-weight-bold">Room: @Model.Sala</label>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FilmeDate" class="control-label">Available sessions</label>
+            <select name="selected" id="FilmeDate" asp-for="FilmeDate" class="form-control userselect" asp-items="ViewBag.FilmeDate"></select>
+        </div>
+
+        <div class="form-group" hidden="hidden">
+            <label asp-for="FilmeId" class="control-label">Available sessions</label>
+            <input asp-for="FilmeId" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="seatNum" class="control-label">Seat Number <span style="color:red">(1-@TempData["roomSeats"])</span> </label>
+            <input asp-for="seatNum" class="form-control" />
+            <span asp-validation-for="seatNum" class="text-danger"></span>
+            <input class="btn btn-outline-danger btn-lg btn-block px-5 font-weight-bold userselect  mt-3" type="submit" asp-action="CheckSeat" asp-controller="Filmes" value="Check Seat Availability" formmethod="post" />
+        </div>
+
+        <div class="form-group mt-3">
+            <button id="BookTicket" class="btn btn-outline-dark btn-lg btn-block px-5 font-weight-bold" type="submit">Reserve Ticket</button>
+            @TempData["Sucess"]
+            @TempData["seatnummsg"]
+            @TempData["seatMax"]
+
+        </div>
+
+    </form>
+
+    <div id="stripeBuy" class="text-center">
+        <form asp-action="Charge" asp-controller="Filmes" method="post">
+            <article>
+
+                @{
+                    TempData["preco"] = @Model.Price;
+                    TempData["filmeName"] = @Model.FilmeName;
+                    //TempData["date"] = @Model.FilmeDate;
+                    //TempData["room"] = Model.Sala;
+                }
+            </article>
+            <script src="//checkout.stripe.com/v2/checkout.js"
+                    class="stripe-button"
+                    data-key="@Stripe.Value.PublishableKey"
+                    data-image="https://localhost:44304/image/leilogo.PNG"
+                    data-locale="auto"
+                    data-description="@Model.FilmeName Ticket">
+            </script>
+        </form>
+    </div>
+</div>
+
+
+
+
+<span id="span1"></span>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".userselect").change(function () {
+                $(this).closest('select').submit();
+            })
+        })
+
+
+    </script>
+}
+
