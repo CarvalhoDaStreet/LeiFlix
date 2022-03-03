@@ -11,6 +11,7 @@ sessões.
 
 ***Relatório de trabalho***
 [Relatório.pdf](https://github.com/CarvalhoDaStreet/Leiflix/files/8174472/Relatorio.pdf)
+https://github.com/CarvalhoDaStreet/Leiflix/blob/master/Relat%C3%B3rio.pdf
 
 
 **Processo de Registo e Login & Página Principal**
