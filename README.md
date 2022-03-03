@@ -1,5 +1,6 @@
 # Leiflix
-Bilheteira de cinema online
+Projeto desenvolvido utilizando ASP.Net Core Web App e SQL Server.
+A aplicação web suporta a gestão da bilheteira de um cinema
 
 A aplicação Web permite aos Utilizadores a compra de bilhetes para sessões de Cinema,
 onde no próprio Portal, pode ser consultada a informação dos filmes em cartaz (Nome, Foto,
